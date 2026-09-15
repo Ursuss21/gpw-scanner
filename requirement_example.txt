@@ -1,0 +1,438 @@
+{
+    name: DailyChange,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 22.04.2026,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: MarketCapitalization,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: SharesOutstanding,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: PriceChange12M,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.04.2025,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: PriceChange6M,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.10.2025,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: PriceChange3M,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.01.2026,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: RelativeMomentum12M,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.04.2025,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: WIG,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: WIG,
+            observationDate: 23.04.2025,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: RelativeMomentum6M,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.10.2025,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: WIG,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: WIG,
+            observationDate: 23.10.2025,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: RelativeMomentum3M,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.01.2026,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: WIG,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: WIG,
+            observationDate: 23.01.2026,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: AverageOperatingProfitPerShare3Y,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: EBIT,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: SharesInYear,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: EBIT,
+            instrument: ASB,
+            observationDate: 23.04.2025,
+            requirements: []
+        },
+        {
+            name: SharesInYear,
+            instrument: ASB,
+            observationDate: 23.04.2025,
+            requirements: []
+        },
+        {
+            name: EBIT,
+            instrument: ASB,
+            observationDate: 23.04.2024,
+            requirements: []
+        },
+        {
+            name: SharesInYear,
+            instrument: ASB,
+            observationDate: 23.04.2024,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: OperatingMargin,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: EBIT,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: SalesRevenue,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: EV_EBITDA,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: EV,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: EBIT,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: Amortization,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: PriceToOperatingProfit,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: MarketCapitalization,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: [
+                {
+                    name: Price,
+                    instrument: ASB,
+                    observationDate: 23.04.2026,
+                    requirements: []
+                },
+                {
+                    name: SharesOutstanding,
+                    instrument: ASB,
+                    observationDate: 23.04.2026,
+                    requirements: []
+                }
+            ]
+        },
+        {
+            name: EBIT,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: AverageTurnover20,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: SessionTurnover,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: SessionTurnover,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        }
+        ...
+        {
+            name: SessionTurnover,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: ROE,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: NetIncome,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: Equity,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: ROA,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: NetIncome,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: TotalAssets,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: PriceToBook,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: MarketCapitalization,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: [
+                {
+                    name: Price,
+                    instrument: ASB,
+                    observationDate: 23.04.2026,
+                    requirements: []
+                },
+                {
+                    name: SharesOutstanding,
+                    instrument: ASB,
+                    observationDate: 23.04.2026,
+                    requirements: []
+                }
+            ]
+        },
+        {
+            name: Equity,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: TotalDebt,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: TotalLiabilities,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: TotalAssets,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        }
+    ]
+}

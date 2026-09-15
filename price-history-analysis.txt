@@ -1,0 +1,189 @@
+1. price  
+    - nazwa - kwota, jaką kupujący musi zapłacić sprzedającemu za jedną sztukę udziału w spółce na giełdzie
+    - typ - bazowa
+    - źródło - wynika bezpośrednio z relacji pomiędzy popytem (chęcią zakupu) a podażą (chęcią sprzedaży) na giełdzie
+    - surowa wartość - wartość liczbowa podawana z dokładnością do dwóch miejsc po przecinku (walutowe)
+    - horyzont - 1 sekunda
+
+2. zmiana_dzienna
+    - nazwa - różnica między aktualną (lub końcową) ceną akcji a ceną zamknięcia z poprzedniego dnia handlowego
+    - typ - pochodna
+    - źródło - różnica obecnego kursu i kursu zamknięcia dnia poprzedniego
+    - surowa wartość - procentowa, dwa miejsca po przecinku
+    - dane źródłowe 
+        - obecna cena akcji
+        - cena akcji z zamknięcia poprzedniej sesji
+    - horyzont - 1 sekunda
+
+3. zysk_operacyjny_na_akcje_3_lata_avg
+    - nazwa - określa, jaka część zysku wygenerowanego z podstawowej działalności operacyjnej spółki (EBIT) przypada średnio na jedną akcję w okresie ostatnich trzech lat obrotowych
+    - typ - pochodna
+    - źródło - Średni zysk operacyjny na akcję w ujęciu 3 lat bierzemy ze sprawozdań finansowych spółki giełdowej (konkretnie z rachunku zysków i strat oraz bilansu), serwisów analizy fundamentalnej lub obliczamy go samodzielnie, dzieląc zysk operacyjny przez liczbę akcji z trzech kolejnych lat, a następnie wyciągając z nich średnią arytmetyczną.
+    - surowa wartość - walutowa, dwa miejsca po przecinku
+    - dane źródłowe 
+        - zysk operacyjny (EBIT), jest wiele sposobów na wyliczenie go, tu trzeba się zastanowić czy jest sens w ogóle go wyliczać samodzielnie, imo nie, wziąłbym gotowe dane z raportu
+        - liczba akcji w roku
+    - horyzont - kwartał
+
+4. kapitalizacja
+    - nazwa -  aktualna rynkowa wartość całej spółki
+    - typ - pochodna
+    - źródło - iloczyn liczby wszystkich akcji w obrocie oraz bieżącego kursu (ceny) jednej akcji na giełdzie
+    - surowa wartość - walutowa, ale prawdopodobnie zaokrąglana do tysięcy
+    - dane źródłowe
+        - aktualna cena akcji
+        - liczba akcji w obrocie
+    - horyzont - 1 sekunda
+
+5. zmiana_kursu_12m
+    - nazwa - wskaźnik procentowy informujący o tym, jak bardzo wzrosła lub spadła cena akcji danej spółki w okresie dokładnie jednego roku
+    - typ - pochodna
+    - źródło - obliczamy na podstawie historycznych kursów zamknięcia danej akcji, liczy się tak: ((kurs aktualny - kurs sprzed 12 miesięcy)/kurs sprzed 12 miesięcy)*100%
+    - surowa wartość - procentowa, dwa miejsca po przecinku
+    - dane źródłowe
+        - aktualna cena akcji
+        - cena akcji sprzed 12 miesięcy
+    - horyzont - 1 dzień
+
+6. zmiana_kursu_6m
+    - nazwa - wskaźnik procentowy informujący o tym, jak bardzo wzrosła lub spadła cena akcji danej spółki w okresie 6 miesięcy
+    - typ - pochodna
+    - źródło - obliczamy na podstawie historycznych kursów zamknięcia danej akcji, liczy się tak: ((kurs aktualny - kurs sprzed 6 miesięcy)/kurs sprzed 6 miesięcy)*100%
+    - surowa wartość - procentowa, dwa miejsca po przecinku
+    - dane źródłowe
+        - aktualna cena akcji
+        - cena akcji sprzed 6 miesięcy
+    - horyzont - 1 dzień
+      
+7. zmiana_kursu_3m
+    - nazwa - wskaźnik procentowy informujący o tym, jak bardzo wzrosła lub spadła cena akcji danej spółki w okresie 3 miesięcy
+    - typ - pochodna
+    - źródło - obliczamy na podstawie historycznych kursów zamknięcia danej akcji, liczy się tak: ((kurs aktualny - kurs sprzed 3 miesięcy)/kurs sprzed 3 miesięcy)*100%
+    - surowa wartość - procentowa, dwa miejsca po przecinku
+    - dane źródłowe
+        - aktualna cena akcji
+        - cena akcji sprzed 3 miesięcy
+    - horyzont - 1 dzień
+
+8. średni_obrót_z_20_sesji
+    - nazwa - przeciętna wartość handlu lub liczba akcji danej spółki, jakie zmieniały właściciela w ciągu ostatnich 20 dni giełdowych
+    - typ - pochodna
+    - źródło - z wolumenu obrotu ostatnich 20 dni sesyjnych, średnia arytmetyczna obrotów z 20 ostatnich dni, obrót to łączna wartość wszystkich transakcji kupna i sprzedaży od momentu rozpoczęcia sesji
+    - surowa wartość - jeśli liczymy akcje, to liczba naturalna, jeśli ich wartość to wartość, ale raczej liczba naturalna
+    - dane źródłowe
+        - obrót z momentu zamknięcia sesji każdego dnia spośród poprzednich 20 dni
+    - horyzont - 1 dzień
+
+9. ROE
+    - nazwa - wskaźnik rentowności kapitału własnego
+    - typ - pochodna
+    - źródło - oblicza się, dzieląc zysk netto przez kapitał własny, liczy się tak: ((zysk netto/kapitał własny)*100%) lub dokładniej ((zysk netto/((kapitał własny z początku roku + kapitał własny z końca roku)/2))*100%)
+    - surowa wartość - procentowa, dwa miejsca po przecinku
+    - dane źródłowe
+        - zysk netto
+        - kapitał własny
+    - horyzont - kwartał
+
+10. ROA
+    - nazwa - wskaźnik rentowności aktywów
+    - typ - pochodna
+    - źródło - bierze się z zależności między zyskiem netto wypracowanym przez firmę a wartością całego majątku (aktywów), którym ta firma dysponuje, liczy się tak: ((zysk netto/aktywa ogółem)*100%) lub dokładniej ((zysk netto/((aktywa ogółem z początku roku + aktywa ogółem z końca roku)/2))*100%)
+    - surowa wartość - procentowa, dwa miejsca po przecinku
+    - dane źrodłowe
+        - zysk netto
+        - aktywa razem
+    - horyzont - kwartał
+
+11. marża_zysku_operacyjnego
+    - nazwa - wskaźnik pokazujący, jaki procent przychodów ze sprzedaży zostaje firmie po odliczeniu kosztów jej głównej działalności
+    - typ - pochodna
+    - źródło - wynika z relacji między przychodami ze sprzedaży a kosztami operacyjnymi ponoszonymi w ramach podstawowej działalności firmy, wyliczana tak: (zysk operacyjny/przychody ze sprzedaży)*100%
+    - surowa wartość - procentowa, dwa miejsca po przecinku
+    - dane źrodłowe
+        - zysk operacyjny (EBIT)
+        - przychody ze sprzedaży
+    - horyzont - kwartał
+
+12. zadłużenie_ogólne
+    - nazwa - to miara finansowa określająca, jaka część majątku spółki jest finansowana z kapitałów obcych, czyli z długów i zobowiązań
+    - typ - pochodna
+    - źródło - zadłużenie ogólne spółki bierze się z finansowania jej majątku (aktywów) za pomocą kapitału obcego zamiast kapitału własnego, liczy się tak: (zobowiązania ogółem/aktywa ogółem)*100%
+    - surowa wartość - liczba z zakresu 0-1, ale może być wyrażone w procentach
+    - dane źródłowe
+        - kapitał obcych
+        - aktywa razem
+    - horyzont - kwartał
+
+13. ev_ebitda
+    - nazwa - służy do oceny, czy spółka jest tania czy droga i czy jej wycena rynkowa jest atrakcyjna
+    - typ - pochodna
+    - źródło - iloraz wartości przedsiębiorstwa (Enterprise Value – EV) oraz jego zysku operacyjnego powiększonego o amortyzację (EBITDA), ev: kapitalizacja rynkowa + dług netto - środki pieniężne i ich ekwiwalenty, ebit: zysk netto + podatki + koszty odsetkowe, ebitda: ebit + amortyzacjam, ev do ebitda: ev/ebitda
+    - surowa wartość - liczba zmiennoprzecinkowa
+    - dane źrodłowe
+        - ev (kapitalizacja, długoterminowe i krótkoterminowe zobowiązania finansowe, udziały mniejszości, gotówka i jej ekwiwalenty), ogólnie bym założył, że ev już gdzieś mamy
+        - zysk operacyjny (ebit)
+        - amortyzacja
+    - horyzont - kwartał
+
+14. cena_zysk_operacyjny
+    - nazwa - miara wyceny spółki giełdowej, która pokazuje stosunek rynkowej ceny jej akcji do zysku operacyjnego (EBIT) przypadającego na jedną akcję
+    - typ - pochodna
+    - źródło - wynika z podzielenia rynkowej ceny jednej akcji przez zysk operacyjny przypadający na jedną akcję (lub – co na jedno wychodzi – całkowitej kapitalizacji spółki przez jej roczny zysk operacyjny)
+    - surowa wartość - liczba zmiennoprzecinkowa
+    - dane źrodłowe
+        - kapitalizacja
+        - zysk operacyjny (ebit)
+    - horyzont - kwartał
+
+15. cena_wartość_księgowa
+    - nazwa - porównuje rynkową cenę akcji spółki z jej majątkiem netto (księgowym) przypadającym na jedną akcję
+    - typ - pochodna
+    - źródło - bierze się z podzielenia rynkowej ceny akcji (lub całej kapitalizacji giełdowej) przez wartość księgową przypadającą na jedną akcję (czyli kapitał własny firmy)
+    - surowa wartość - liczba zmiennoprzecinkowa
+    - dane źrodłowe
+        - kapitalizacja
+        - wartość księgowa spółki (kapitał własny)
+    - horyzont - kwartał
+
+16. piotroski_f_score
+    - nazwa - 9-punktowa skala oceny kondycji finansowej spółki, która pomaga inwestorom odnaleźć silne firmy w segmencie inwestycji w wartość
+    - typ - bazowa (na nasze potrzeby tak założymy)
+    - źródło - wynika z sumowania 9 binarnych kryteriów (0 lub 1 punkt) oceniających kondycję finansową spółki na podstawie jej sprawozdań
+    - surowa wartość - liczba z zakresu 0-9
+    - horyzont - kwartał
+
+17. zmiana_kursu_12m_wig
+    - nazwa - wskaźnik procentowy informujący o tym, jak bardzo wzrosła lub spadła cena akcji danej spółki w okresie dokładnie jednego roku w stosunku do wig
+    - typ - pochodna
+    - źródło - obliczamy na podstawie historycznych kursów zamknięcia danej akcji, liczy się tak: ((kurs aktualny - kurs sprzed 12 miesięcy)/kurs sprzed 12 miesięcy)*100%, to samo dla wigu, a następnie zmiana akcji - zmiana wig
+    - surowa wartość - procentowa, dwa miejsca po przecinku
+    - dane źródłowe
+        - aktualna cena akcji
+        - cena akcji sprzed 12 miesięcy
+        - aktualna cena wig
+        - cena wig sprzed 12 miesięcy
+    - horyzont - 1 dzień
+
+18. zmiana_kursu_6m_wig
+    - nazwa - wskaźnik procentowy informujący o tym, jak bardzo wzrosła lub spadła cena akcji danej spółki w okresie dokładnie jednego roku w stosunku do wig
+    - typ - pochodna
+    - źródło - obliczamy na podstawie historycznych kursów zamknięcia danej akcji, liczy się tak: ((kurs aktualny - kurs sprzed 6 miesięcy)/kurs sprzed 6 miesięcy)*100%, to samo dla wigu, a następnie zmiana akcji - zmiana wig
+    - surowa wartość - procentowa, dwa miejsca po przecinku
+    - dane źródłowe
+        - aktualna cena akcji
+        - cena akcji sprzed 6 miesięcy
+        - aktualna cena wig
+        - cena wig sprzed 6 miesięcy
+    - horyzont - 1 dzień
+
+19. zmiana_kursu_3m_wig
+    - nazwa - wskaźnik procentowy informujący o tym, jak bardzo wzrosła lub spadła cena akcji danej spółki w okresie dokładnie jednego roku w stosunku do wig
+    - typ - pochodna
+    - źródło - obliczamy na podstawie historycznych kursów zamknięcia danej akcji, liczy się tak: ((kurs aktualny - kurs sprzed 3 miesięcy)/kurs sprzed 3 miesięcy)*100%, to samo dla wigu, a następnie zmiana akcji - zmiana wig
+    - surowa wartość - procentowa, dwa miejsca po przecinku
+    - dane źródłowe
+        - aktualna cena akcji
+        - cena akcji sprzed 3 miesięcy
+        - aktualna cena wig
+        - cena wig sprzed 3 miesięcy
+    - horyzont - 1 dzień

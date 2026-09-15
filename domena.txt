@@ -1,0 +1,594 @@
+EVENT
+  │
+  │ przetwarzamy raport / zamknięcie sesji
+  ▼
+OBSERVATION
+  │
+  │ zapisujemy snapshot danych,
+  │ których potrzebuje nasza domena
+  ▼
+DATABASE
+
+
+REQUIREMENT
+  │
+  │ "czego potrzebuję dla D?"
+  ▼
+RESOLUTION
+  │
+  │ "która Observation jest właściwa dla D?"
+  ▼
+OBSERVATION
+  │
+  │ pobieramy konkretne wartości
+  ▼
+CALCULATION
+
+GRAPH
+
+```mermaid
+graph TD
+    price(D) --> zmiana_dzienna;
+    price(D-1) --> zmiana_dzienna;
+    price(D) --> kapitalizacja;
+    price(D) --> zmiana_kursu_12m;
+    price(Y - 1) --> zmiana_kursu_12m;
+    price(D) --> zmiana_kursu_6m;
+    price(M - 6) --> zmiana_kursu_6m;
+    price(D) --> zmiana_kursu_3m;
+    price(M - 3) --> zmiana_kursu_3m;
+    price(D) --> zmiana_kursu_12m_wig;
+    price(Y - 1) --> zmiana_kursu_12m_wig;
+    price_wig(D) --> zmiana_kursu_12m_wig;
+    price_wig(Y - 1) --> zmiana_kursu_12m_wig;
+    price(D) --> zmiana_kursu_6m_wig;
+    price(M - 6) --> zmiana_kursu_6m_wig;
+    price_wig(D) --> zmiana_kursu_6m_wig;
+    price_wig(M - 6) --> zmiana_kursu_6m_wig;
+    price(D) --> zmiana_kursu_3m_wig;
+    price(M - 3) --> zmiana_kursu_3m_wig;
+    price_wig(D) --> zmiana_kursu_3m_wig;
+    price_wig(M - 3) --> zmiana_kursu_3m_wig;
+    ebit --> zysk_operacyjny_na_akcje_3_lata_avg;
+    ebit --> marża_zysku_operacyjnego;
+    ebit --> ev_ebitda;
+    ebit --> cena_zysk_operacyjny;
+    liczba_akcji_w_roku(D, Y - 1) --> zysk_operacyjny_na_akcje_3_lata_avg;
+    liczba_akcji_w_roku(Y - 1, Y - 2) --> zysk_operacyjny_na_akcje_3_lata_avg;
+    liczba_akcji_w_roku(Y - 2, Y - 3) --> zysk_operacyjny_na_akcje_3_lata_avg;
+    obrót_z_zamknięcia_sesji(D) --> średni_obrót_z_20_sesji;
+    obrót_z_zamknięcia_sesji(D - 1...19) --> średni_obrót_z_20_sesji;
+    zysk_netto --> ROE;
+    zysk_netto --> ROA;
+    kapitał_własny --> ROE;
+    kapitał_własny --> cena_wartość_księgowa;
+    aktywa_razem --> ROA;
+    aktywa_razem --> zadłużenie_ogólne;
+    ev --> ev_ebitda;
+    amortyzacja --> ev_ebitda;
+    liczba_akcji_w_obrocie --> kapitalizacja;
+    przychody_ze_sprzedaży --> marża_zysku_operacyjnego;
+    kapitał_obcy --> zadłużenie_ogólne;
+    kapitalizacja --> cena_zysk_operacyjny;
+    kapitalizacja --> cena_wartość_księgowa;
+
+```
+
+
+Zamkniecie sesji (dane marketowe)
+    - Instrument
+    - AvailableAt
+    - Price
+    - SessionTurnover
+
+Raport kwartalny (dane fundamentalne)
+    - Instrument
+    - AvailableAt
+    - EBIT
+    - SharesInYear
+    - NetIncome
+    - Equity
+    - TotalAssets
+    - EV
+    - Amortization
+    - SharesOutstanding
+    - SalesRevenue
+    - TotalLiabilities
+
+Derived data
+    - DailyChange
+    - MarketCapitalization
+    - PriceChange12M
+    - PriceChange6M
+    - PriceChange3M
+    - RelativeMomentum12M 
+    - RelativeMomentum6M
+    - RelativeMomentum3M 
+    - AverageOperatingProfitPerShare3Y
+    - OperatingMargin
+    - EV_EBITDA
+    - PriceToOperatingProfit
+    - AverageTurnover20
+    - ROE
+    - ROA
+    - PriceToBook
+    - TotalDebt
+
+
+CALCULATIONS
+    - DailyChange
+      - ((Price(D) - Price(D-1)) / Price(D-1)) * 100%
+    - MarketCapitalization
+      - Price(D) * SharesOutstanding(D)
+    - PriceChange12M
+      - ((Price(D) - Price(Y-1))/Price(Y-1))*100%
+    - PriceChange6M
+      - ((Price(D) - Price(M-6))/Price(M-6))*100%
+    - PriceChange3M
+      - ((Price(D) - Price(M-3))/Price(M-3))*100%
+    - RelativeMomentum12M
+      - ((Price(D) - Price(Y-1))/Price(Y-1))*100% - ((PriceWig(D) - PriceWig(Y-1))/PriceWig(Y-1))*100%
+    - RelativeMomentum6M
+      - ((Price(D) - Price(M-6))/Price(M-6))*100% - ((PriceWig(D) - PriceWig(M-6))/PriceWig(M-6))*100%
+    - RelativeMomentum3M
+      - ((Price(D) - Price(M-3))/Price(M-3))*100% - ((PriceWig(D) - PriceWig(M-3))/PriceWig(M-3))*100%
+    - AverageOperatingProfitPerShare3Y
+      - ((EBIT(D)/SharesInYear(D)) + (EBIT(Y-1)/SharesInYear(Y-1)) + (EBIT(Y-2)/SharesInYear(Y-2)))/3
+    - OperatingMargin
+      - (EBIT(D)/SalesRevenue(D)) * 100%
+    - EV_EBITDA
+      - EV(D)/(EBIT(D) + Amortization(D))
+    - PriceToOperatingProfit
+      - MarketCapitalization(D)/EBIT(D)
+    - AverageTurnover20
+      - (SessionTurnover(D) + SessionTurnover(D-1) + ... + SessionTurnover(D-19))/20
+    - ROE
+      - (NetIncome(D)/Equity(D)) * 100%
+    - ROA
+      - (NetIncome(D)/TotalAssets(D)) * 100%
+    - PriceToBook
+      - MarketCapitalization(D)/Equity(D)
+    - TotalDebt
+      - (TotalLiabilities(D)/TotalAssets(D))
+
+
+REQUIREMENT
+
+{
+    name: DailyChange,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 22.04.2026,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: MarketCapitalization,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: SharesOutstanding,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: PriceChange12M,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.04.2025,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: PriceChange6M,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.10.2025,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: PriceChange3M,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.01.2026,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: RelativeMomentum12M,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.04.2025,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: WIG,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: WIG,
+            observationDate: 23.04.2025,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: RelativeMomentum6M,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.10.2025,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: WIG,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: WIG,
+            observationDate: 23.10.2025,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: RelativeMomentum3M,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.01.2026,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: WIG,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: WIG,
+            observationDate: 23.01.2026,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: AverageOperatingProfitPerShare3Y,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: EBIT,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: SharesInYear,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: EBIT,
+            instrument: ASB,
+            observationDate: 23.04.2025,
+            requirements: []
+        },
+        {
+            name: SharesInYear,
+            instrument: ASB,
+            observationDate: 23.04.2025,
+            requirements: []
+        },
+        {
+            name: EBIT,
+            instrument: ASB,
+            observationDate: 23.04.2024,
+            requirements: []
+        },
+        {
+            name: SharesInYear,
+            instrument: ASB,
+            observationDate: 23.04.2024,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: OperatingMargin,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: EBIT,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: SalesRevenue,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: EV_EBITDA,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: EV,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: EBIT,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: Amortization,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: PriceToOperatingProfit,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: MarketCapitalization,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: [
+                {
+                    name: Price,
+                    instrument: ASB,
+                    observationDate: 23.04.2026,
+                    requirements: []
+                },
+                {
+                    name: SharesOutstanding,
+                    instrument: ASB,
+                    observationDate: 23.04.2026,
+                    requirements: []
+                }
+            ]
+        },
+        {
+            name: EBIT,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: AverageTurnover20,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: SessionTurnover,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: SessionTurnover,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        }
+        ...
+        {
+            name: SessionTurnover,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: ROE,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: NetIncome,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: Equity,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: ROA,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: NetIncome,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: TotalAssets,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: PriceToBook,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: MarketCapitalization,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: [
+                {
+                    name: Price,
+                    instrument: ASB,
+                    observationDate: 23.04.2026,
+                    requirements: []
+                },
+                {
+                    name: SharesOutstanding,
+                    instrument: ASB,
+                    observationDate: 23.04.2026,
+                    requirements: []
+                }
+            ]
+        },
+        {
+            name: Equity,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: TotalDebt,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: TotalLiabilities,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: TotalAssets,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        }
+    ]
+}

@@ -1,0 +1,49 @@
+Company {
+    id: guid;
+    name: string;
+    ticker: string;
+}
+
+PriceHistory {
+    id: guid;
+    date: timestampz (prawdopodobnie dobrze byłoby kalkulować dany rekord o konkretnej godzinie każdego dnia, tak żeby wpis pojawiał się w historii + jeśli mamy dostęp do danych historycznych, to będzie to łatwiejsze do spopulowania)
+    company_id: guid; (foreign key - Company.id)
+    price: decimal (2 miejsca po przecinku, walutowe)
+    zmiana_dzienna: (2 miejsca po przecinku, procentowe, trzeba móc mieć dodatnie i ujemne wartości)
+    zysk_operacyjny_na_akcje_3_lata_avg: decimal (2 miejsca po przecinku, procentowe)
+    kapitalizacja: decimal (2 miejsca po przecinku, walutowe, pewnie większy decimal, bo może być overflow)
+    zmiana_kursu_12m: signed decimal (2 miejsca po przecinku, procentowe, trzeba móc mieć dodatnie i ujemne wartości)
+    zmiana_kursu_6m: signed decimal (2 miejsca po przecinku, procentowe, trzeba móc mieć dodatnie i ujemne wartości)
+    zmiana_kursu_3m: signed decimal (2 miejsca po przecinku, procentowe, trzeba móc mieć dodatnie i ujemne wartości)
+    średni_obrót_z_20_sesji: (2 miejsca po przecinku, walutowe, pewnie większy decimal, bo może być overflow)
+    ROE: decimal (2 miejsca po przecinku, procentowe)
+    ROA: decimal (2 miejsca po przecinku, procentowe)
+    marża_zysku_operacyjnego: decimal (2 miejsca po przecinku, procentowe)
+    zadłużenie_ogóle: float/double/decimal (zależy jakie dane ogólnie są zwracane, ale prawdopodobnie można pocisnąć decimalkiem)
+    ev_ebitda: float/double/decimal (zależy jakie dane ogólnie są zwracane, ale prawdopodobnie można pocisnąć decimalkiem)
+    cena_zysk_operacyjny: float/double/decimal (zależy jakie dane ogólnie są zwracane, ale prawdopodobnie można pocisnąć decimalkiem)
+    cena_wartość_księgowa: float/double/decimal (zależy jakie dane ogólnie są zwracane, ale prawdopodobnie można pocisnąć decimalkiem)
+    piotroski_f_score: short int
+    zmiana_kursu_12m_wig: (2 miejsca po przecinku, procentowe, trzeba móc mieć dodatnie i ujemne wartości)
+    zmiana_kursu_6m_wig: (2 miejsca po przecinku, procentowe, trzeba móc mieć dodatnie i ujemne wartości)
+    zmiana_kursu_3m_wig: (2 miejsca po przecinku, procentowe, trzeba móc mieć dodatnie i ujemne wartości)
+}
+
+RankingHistory {
+    id: guid;
+    date: timestampz (prawdopodobnie dobrze byłoby kalkulować dany rekord o konkretnej godzinie każdego dnia, tak żeby wpis pojawiał się w historii + jeśli mamy dostęp do danych historycznych, to będzie to łatwiejsze do spopulowania)
+    company_id: guid; (foreign key - Company.id)
+    fundamenty: decimal (2 miejsca po przecinku, można się zastanowić w sumie nad floatem, albo jeszcze czymś krótszym (jeśli istnieje), żeby zaoszczędzić na pamięci)
+    momentum: decimal (2 miejsca po przecinku, można się zastanowić w sumie nad floatem, albo jeszcze czymś krótszym (jeśli istnieje), żeby zaoszczędzić na pamięci)
+    total: decimal (2 miejsca po przecinku, można się zastanowić w sumie nad floatem, albo jeszcze czymś krótszym (jeśli istnieje), żeby zaoszczędzić na pamięci)
+    difference: signed decimal (2 miejsca po przecinku, można się zastanowić w sumie nad floatem, albo jeszcze czymś krótszym (jeśli istnieje), żeby zaoszczędzić na pamięci, różnica pomiędzy obecnym i poprzednim wynikiem)
+    place: short int
+    place_difference: signed short int (po to, żeby widzieć co awansowało, a co spadło)
+    scoring_algorithm_id: guid (foreign key - ScoringAlgorithm.id)
+}
+
+ScoringAlgorithm {
+    id: guid;
+    name: string;
+    algorithm: string (nie wiem czy to dobry pomysł, ale chciałbym trzymać te algorytmy w bazie, żeby w razie czego mieć je wersjonowane i móc zastosować różne wersje z czasem)
+}

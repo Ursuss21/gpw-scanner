@@ -1,0 +1,117 @@
+
+{
+    name: DailyChange,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 22.04.2026,
+            requirements: []
+        }
+    ]
+}
+
+{
+    name: RelativeMomentum12M,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: Price,
+            instrument: ASB,
+            observationDate: 23.04.2025,
+            requirements: []
+        }
+    ]
+}
+
+
+{
+    name: AverageTurnover20,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: Turnover,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: Turnover,
+            instrument: ASB,
+            observationDate: 22.04.2026,
+            requirements: []
+        }
+        ...
+        {
+            name: Turnover,
+            instrument: ASB,
+            observationDate: 31.03.2026, (bo to wcale nie oznacza 20 kolejnych dni, tylko 20 kolejnych obserwacji)
+            requirements: []
+        }
+    ]
+}
+
+
+{
+    name: ROE,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: zysk_netto,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: kapitał_własny,
+            instrument: ASB,
+            observationDate: 23.04.2026, (te dane raczej w teorii powinny być dostępne tego samego dnia w raporcie kwartalnym)
+            requirements: []
+        }
+    ]
+}
+
+
+
+{
+    name: EV_EBITDA,
+    instrument: ASB,
+    observationDate: 23.04.2026,
+    requirements: [
+        {
+            name: EBIT,
+            instrument: ASB,
+            observationDate: 23.04.2026,
+            requirements: []
+        },
+        {
+            name: amortyzacja,
+            instrument: ASB,
+            observationDate: 23.04.2026, (te dane raczej w teorii powinny być dostępne tego samego dnia w raporcie kwartalnym)
+            requirements: []
+        },
+        {
+            name: EV,
+            instrument: ASB,
+            observationDate: 23.04.2026, (te dane raczej w teorii powinny być dostępne tego samego dnia w raporcie kwartalnym)
+            requirements: []
+        }
+    ]
+}

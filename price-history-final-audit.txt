@@ -1,0 +1,231 @@
+1. price  
+    - bazowe dane - brak, ona sama jest bazowa
+    - pochodne dane - zmiana_dzienna, kapitalizacja, zmiana_kursu_12m, zmiana_kursu_6m, zmiana_kursu_3m, zmiana_kursu_12m_wig, zmiana_kursu_6m_wig, zmiana_kursu_3m_wig
+    - częstotliwość - normalnie co sekundę, w naszym modelu może być raz dziennie
+    - moment, od którego informacja jest dostępna - praktycznie każdy (jest to aktualizowane live)
+    - czy możemy ją odtworzyć dla dowolnego dnia w historii - jeśli mamy ją zapisaną, to tak, ale tak żeby sobie wyliczyć, to nie, bo jest bazowa
+
+2. zmiana_dzienna
+    - bazowe dane 
+        - obecna cena akcji
+        - cena akcji z zamknięcia poprzedniej sesji
+    - pochodne dane - 
+    - częstotliwość - normalnie co sekundę, w naszym modelu może być raz dziennie
+    - moment, od którego informacja jest dostępna - praktycznie każdy (jest to aktualizowane live)
+    - czy możemy ją odtworzyć dla dowolnego dnia w historii - musimy mieć dostęp do informacji o kursie z poprzedniego dnia, jak ją mamy, to możemy to zawsze policzyć (bo zakładamy, że mamy obecną cenę)
+
+3. zysk_operacyjny_na_akcje_3_lata_avg
+    - bazowe dane 
+        - zysk operacyjny (EBIT)
+        - liczba akcji w roku
+    - pochodne dane - 
+    - częstotliwość - średnio co kwartał 
+    - moment, od którego informacja jest dostępna - dostajemy tą informację w kwartalnym raporcie, raport ocenia przeszłość, natomiast nas interesuje moment, w którym poznaliśmy tą informację, więc dopiero od niego wyliczamy inne rzeczy
+    - czy możemy ją odtworzyć dla dowolnego dnia w historii - nie, to jest raczej coś, czego się dowiadujemy w momencie raportu i nie przeliczamy tego x razy
+
+4. kapitalizacja
+    - bazowe dane 
+        - obecna cena akcji
+        - liczba akcji w obrocie
+    - pochodne dane - cena_zysk_operacyjny, cena_wartość_księgowa
+    - częstotliwość - normalnie co sekundę, w naszym modelu może być raz dziennie
+    - moment, od którego informacja jest dostępna - wyliczyć to możemy w dowolnym momencie, ale liczba akcji w obrocie może się zmieniać w losowych interwałach (trzeba by to trackować osobno, może w historii zmian fundamentalnych spółki? może powinniśmy mieć wpisy również na zasadzie - zmienia się coś, to cyk leci wpis)
+    - czy możemy ją odtworzyć dla dowolnego dnia w historii - raczej tak, o ile mamy dane bazowe
+
+5. zmiana_kursu_12m
+    - bazowe dane 
+        - obecna cena akcji
+        - cena akcji sprzed 12 miesięcy
+    - pochodne dane - 
+    - częstotliwość - zależy jak to chcemy liczyć, cena akcji sprzed 12 miesięcy powinna być chyba z zamknięcia sesji wtedy, obecna cena to zależy czy dzień trwa czy się zamknął, bo jeśli trwa, to możemy z obecnego momentu
+    - moment, od którego informacja jest dostępna - jak mamy historyczne dane, to wyliczenie może być na bieżąco
+    - czy możemy ją odtworzyć dla dowolnego dnia w historii - raczej tak, o ile mamy dane bazowe
+
+6. zmiana_kursu_6m
+    - bazowe dane 
+        - obecna cena akcji
+        - cena akcji sprzed 6 miesięcy
+    - pochodne dane - 
+    - częstotliwość - zależy jak to chcemy liczyć, cena akcji sprzed 6 miesięcy powinna być chyba z zamknięcia sesji wtedy, obecna cena to zależy czy dzień trwa czy się zamknął, bo jeśli trwa, to możemy z obecnego momentu
+    - moment, od którego informacja jest dostępna - jak mamy historyczne dane, to wyliczenie może być na bieżąco
+    - czy możemy ją odtworzyć dla dowolnego dnia w historii - raczej tak, o ile mamy dane bazowe
+      
+7. zmiana_kursu_3m
+    - bazowe dane 
+        - obecna cena akcji
+        - cena akcji sprzed 3 miesięcy
+    - pochodne dane - 
+    - częstotliwość - zależy jak to chcemy liczyć, cena akcji sprzed 3 miesięcy powinna być chyba z zamknięcia sesji wtedy, obecna cena to zależy czy dzień trwa czy się zamknął, bo jeśli trwa, to możemy z obecnego momentu
+    - moment, od którego informacja jest dostępna - jak mamy historyczne dane, to wyliczenie może być na bieżąco
+    - czy możemy ją odtworzyć dla dowolnego dnia w historii - raczej tak, o ile mamy dane bazowe
+
+8. średni_obrót_z_20_sesji
+    - bazowe dane 
+        - obrót z momentu zamknięcia sesji każdego dnia spośród poprzednich 20 dni
+    - pochodne dane - 
+    - częstotliwość - raczej po zamknięciu każdej sesji, czyli raz dziennie
+    - moment, od którego informacja jest dostępna - jak mamy historyczne dane, to wyliczamy to raz dziennie
+    - czy możemy ją odtworzyć dla dowolnego dnia w historii - raczej tak, o ile mamy dane bazowe
+
+9. ROE
+    - bazowe dane 
+        - zysk netto
+        - kapitał własny
+    - pochodne dane - 
+    - częstotliwość - raz na kwartał, kiedy raport jest opublikowany
+    - moment, od którego informacja jest dostępna - dostajemy tą informację w kwartalnym raporcie, raport ocenia przeszłość, natomiast nas interesuje moment, w którym poznaliśmy tą informację, więc dopiero od niego wyliczamy inne rzeczy
+    - czy możemy ją odtworzyć dla dowolnego dnia w historii - nie, to jest raczej coś, czego się dowiadujemy w momencie raportu i nie przeliczamy tego x razy
+
+10. ROA
+    - bazowe dane 
+        - zysk netto
+        - aktywa razem
+    - pochodne dane - 
+    - częstotliwość - raz na kwartał, kiedy raport jest opublikowany
+    - moment, od którego informacja jest dostępna - dostajemy tą informację w kwartalnym raporcie, raport ocenia przeszłość, natomiast nas interesuje moment, w którym poznaliśmy tą informację, więc dopiero od niego wyliczamy inne rzeczy
+    - czy możemy ją odtworzyć dla dowolnego dnia w historii - nie, to jest raczej coś, czego się dowiadujemy w momencie raportu i nie przeliczamy tego x razy
+
+11. marża_zysku_operacyjnego
+    - bazowe dane 
+        - zysk operacyjny (EBIT)
+        - przychody ze sprzedaży
+    - pochodne dane - 
+    - częstotliwość - raz na kwartał, kiedy raport jest opublikowany
+    - moment, od którego informacja jest dostępna - dostajemy tą informację w kwartalnym raporcie, raport ocenia przeszłość, natomiast nas interesuje moment, w którym poznaliśmy tą informację, więc dopiero od niego wyliczamy inne rzeczy
+    - czy możemy ją odtworzyć dla dowolnego dnia w historii - nie, to jest raczej coś, czego się dowiadujemy w momencie raportu i nie przeliczamy tego x razy
+
+12. zadłużenie_ogólne
+    - bazowe dane 
+        - kapitał obcy
+        - aktywa razem
+    - pochodne dane - 
+    - częstotliwość - raz na kwartał, kiedy raport jest opublikowany
+    - moment, od którego informacja jest dostępna - dostajemy tą informację w kwartalnym raporcie, raport ocenia przeszłość, natomiast nas interesuje moment, w którym poznaliśmy tą informację, więc dopiero od niego wyliczamy inne rzeczy
+    - czy możemy ją odtworzyć dla dowolnego dnia w historii - nie, to jest raczej coś, czego się dowiadujemy w momencie raportu i nie przeliczamy tego x razy
+
+13. ev_ebitda
+    - bazowe dane 
+        - ev (kapitalizacja, długoterminowe i krótkoterminowe zobowiązania finansowe, udziały mniejszości, gotówka i jej ekwiwalenty), ogólnie bym założył, że ev już gdzieś mamy
+        - zysk operacyjny (EBIT)
+        - amortyzacja
+    - pochodne dane - 
+    - częstotliwość - raz na kwartał, kiedy raport jest opublikowany
+    - moment, od którego informacja jest dostępna - dostajemy tą informację w kwartalnym raporcie, raport ocenia przeszłość, natomiast nas interesuje moment, w którym poznaliśmy tą informację, więc dopiero od niego wyliczamy inne rzeczy
+    - czy możemy ją odtworzyć dla dowolnego dnia w historii - nie, to jest raczej coś, czego się dowiadujemy w momencie raportu i nie przeliczamy tego x razy
+
+14. cena_zysk_operacyjny
+    - bazowe dane 
+        - kapitalizacja
+        - zysk operacyjny (EBIT)
+    - pochodne dane - 
+    - częstotliwość - raz na kwartał, kiedy raport jest opublikowany
+    - moment, od którego informacja jest dostępna - dostajemy tą informację w kwartalnym raporcie, raport ocenia przeszłość, natomiast nas interesuje moment, w którym poznaliśmy tą informację, więc dopiero od niego wyliczamy inne rzeczy
+    - czy możemy ją odtworzyć dla dowolnego dnia w historii - nie, to jest raczej coś, czego się dowiadujemy w momencie raportu i nie przeliczamy tego x razy
+
+15. cena_wartość_księgowa
+    - bazowe dane 
+        - kapitalizacja
+        - wartość księgowa spółki (kapitał własny)
+    - pochodne dane - 
+    - częstotliwość - raz na kwartał, kiedy raport jest opublikowany
+    - moment, od którego informacja jest dostępna - dostajemy tą informację w kwartalnym raporcie, raport ocenia przeszłość, natomiast nas interesuje moment, w którym poznaliśmy tą informację, więc dopiero od niego wyliczamy inne rzeczy
+    - czy możemy ją odtworzyć dla dowolnego dnia w historii - nie, to jest raczej coś, czego się dowiadujemy w momencie raportu i nie przeliczamy tego x razy
+
+16. piotroski_f_score
+    - bazowe dane -
+    - pochodne dane - 
+    - częstotliwość - raz na kwartał, wyliczane po opublikowaniu raportu, ale nie jest w raporcie raczej
+    - moment, od którego informacja jest dostępna - dostajemy tą informację po ukazaniu się kwartalnego raportu, raport ocenia przeszłość, natomiast nas interesuje moment, w którym poznaliśmy tą informację, więc dopiero od niego wyliczamy inne rzeczy
+    - czy możemy ją odtworzyć dla dowolnego dnia w historii - nie, to jest raczej coś, czego się dowiadujemy po ukazaniu się kwartalnego raportu i nie przeliczamy tego x razy
+
+17. zmiana_kursu_12m_wig
+    - bazowe dane 
+        - aktualna cena akcji
+        - cena akcji sprzed 12 miesięcy
+        - aktualna cena wig
+        - cena wig sprzed 12 miesięcy
+    - pochodne dane - 
+    - częstotliwość - zależy jak to chcemy liczyć, cena akcji sprzed 12 miesięcy powinna być chyba z zamknięcia sesji wtedy, obecna cena to zależy czy dzień trwa czy się zamknął, bo jeśli trwa, to możemy z obecnego momentu, to samo z wigiem
+    - moment, od którego informacja jest dostępna - jak mamy historyczne dane, to wyliczenie może być na bieżąco
+    - czy możemy ją odtworzyć dla dowolnego dnia w historii - raczej tak, o ile mamy dane bazowe
+
+18. zmiana_kursu_6m_wig
+    - bazowe dane 
+        - aktualna cena akcji
+        - cena akcji sprzed 6 miesięcy
+        - aktualna cena wig
+        - cena wig sprzed 6 miesięcy
+    - pochodne dane - 
+    - częstotliwość - zależy jak to chcemy liczyć, cena akcji sprzed 6 miesięcy powinna być chyba z zamknięcia sesji wtedy, obecna cena to zależy czy dzień trwa czy się zamknął, bo jeśli trwa, to możemy z obecnego momentu, to samo z wigiem
+    - moment, od którego informacja jest dostępna - jak mamy historyczne dane, to wyliczenie może być na bieżąco
+    - czy możemy ją odtworzyć dla dowolnego dnia w historii - raczej tak, o ile mamy dane bazowe
+
+19. zmiana_kursu_3m_wig
+    - bazowe dane 
+        - aktualna cena akcji
+        - cena akcji sprzed 3 miesięcy
+        - aktualna cena wig
+        - cena wig sprzed 3 miesięcy
+    - pochodne dane - 
+    - częstotliwość - zależy jak to chcemy liczyć, cena akcji sprzed 3 miesięcy powinna być chyba z zamknięcia sesji wtedy, obecna cena to zależy czy dzień trwa czy się zamknął, bo jeśli trwa, to możemy z obecnego momentu, to samo z wigiem
+    - moment, od którego informacja jest dostępna - jak mamy historyczne dane, to wyliczenie może być na bieżąco
+    - czy możemy ją odtworzyć dla dowolnego dnia w historii - raczej tak, o ile mamy dane bazowe
+
+
+    dodatkowo zbierając do kupy bazowe dane, to możemy sobie dorzucić takie brakujące rzeczy:
+
+20. zysk operacyjny (EBIT)
+    - na potrzeby tego modelu załóżmy, że jest to bazowa działalności
+    - pochodne dane - zysk_operacyjny_na_akcje_3_lata_avg, marża_zysku_operacyjnego, ev_ebitda, cena_zysk_operacyjny
+    - częstotliwość - raz na kwartał, kiedy raport jest opublikowany
+    - moment, od którego informacja jest dostępna - dostajemy tą informację w kwartalnym raporcie, raport ocenia przeszłość, natomiast nas interesuje moment, w którym poznaliśmy tą informację, więc dopiero od niego wyliczamy inne rzeczy
+    - czy możemy ją odtworzyć dla dowolnego dnia w historii - nie, to jest raczej coś, czego się dowiadujemy w momencie raportu i nie przeliczamy tego x razy
+
+21. liczba akcji w roku
+    - to jest coś, co może się zmieniać w czasie w losowych interwałach, dla rocznych wskaźników liczy się to jako średnioważoną liczbę akcji zwykłych
+    - pochodne dane - zysk_operacyjny_na_akcje_3_lata_avg, kapitalizacja
+    - częstotliwość - różnie, zależy jak bardzo jest to modyfikowane
+    - moment, od którego informacja jest dostępna - jak tylko spółka opublikuje info o redukcji lub emisji akcji
+    - czy możemy ją odtworzyć dla dowolnego dnia w historii - odtworzyć nie, zapisać dla dowolnego dnia tak, ale nie zapisywałbym każdego dnia, tylko co wystąpienie zmiany, jako osobny wpis w historii spółki
+
+22. obrót z zamknięcia sesji
+    - to jest coś, czego potrzebujemy do innych obliczeń
+    - pochodne dane - średni_obrót_z_20_sesji
+    - częstotliwość - raz dziennie, po zakończeniu sesji
+    - moment, od którego informacja jest dostępna - raz dziennie, po zakończeniu sesji
+    - czy możemy ją odtworzyć dla dowolnego dnia w historii - możemy ją zapisać dla każdego dnia, nie skupiamy się na wszystkich operacjach które miały miejsca, więc traktujemy to jako daną bazową
+
+23. zysk netto
+    - bazowa wartość
+    - pochodne dane - ROE, ROA
+    - częstotliwość - raz na kwartał, kiedy raport jest opublikowany
+    - moment, od którego informacja jest dostępna - dostajemy tą informację w kwartalnym raporcie, raport ocenia przeszłość, natomiast nas interesuje moment, w którym poznaliśmy tą informację, więc dopiero od niego wyliczamy inne rzeczy
+    - czy możemy ją odtworzyć dla dowolnego dnia w historii - nie, to jest raczej coś, czego się dowiadujemy w momencie raportu i nie przeliczamy tego x razy
+
+24. kapitał własny
+    - bazowa wartość
+    - pochodne dane - ROE, cena_wartość_księgowa
+    - częstotliwość - raz na kwartał, kiedy raport jest opublikowany
+    - moment, od którego informacja jest dostępna - dostajemy tą informację w kwartalnym raporcie, raport ocenia przeszłość, natomiast nas interesuje moment, w którym poznaliśmy tą informację, więc dopiero od niego wyliczamy inne rzeczy
+    - czy możemy ją odtworzyć dla dowolnego dnia w historii - nie, to jest raczej coś, czego się dowiadujemy w momencie raportu i nie przeliczamy tego x razy
+
+25. aktywa razem
+    - bazowa wartość
+    - pochodne dane - ROA, zadłużenie_ogólne
+    - częstotliwość - raz na kwartał, kiedy raport jest opublikowany
+    - moment, od którego informacja jest dostępna - dostajemy tą informację w kwartalnym raporcie, raport ocenia przeszłość, natomiast nas interesuje moment, w którym poznaliśmy tą informację, więc dopiero od niego wyliczamy inne rzeczy
+    - czy możemy ją odtworzyć dla dowolnego dnia w historii - nie, to jest raczej coś, czego się dowiadujemy w momencie raportu i nie przeliczamy tego x razy
+
+26. ev
+    - kapitalizacja, długoterminowe i krótkoterminowe zobowiązania finansowe, udziały mniejszości, gotówka i jej ekwiwalenty, na potrzeby tego na razie możemy założyć, że ev trzymamy
+    - pochodne dane - ev_ebitda
+    - częstotliwość - raz na kwartał, kiedy raport jest opublikowany
+    - moment, od którego informacja jest dostępna - dostajemy tą informację w kwartalnym raporcie, raport ocenia przeszłość, natomiast nas interesuje moment, w którym poznaliśmy tą informację, więc dopiero od niego wyliczamy inne rzeczy
+    - czy możemy ją odtworzyć dla dowolnego dnia w historii - nie, to jest raczej coś, czego się dowiadujemy w momencie raportu i nie przeliczamy tego x razy
+
+27. amortyzacja
+    - bazowa wartość
+    - pochodne dane - ev_ebitda
+    - częstotliwość - raz na kwartał, kiedy raport jest opublikowany
+    - moment, od którego informacja jest dostępna - dostajemy tą informację w kwartalnym raporcie, raport ocenia przeszłość, natomiast nas interesuje moment, w którym poznaliśmy tą informację, więc dopiero od niego wyliczamy inne rzeczy
+    - czy możemy ją odtworzyć dla dowolnego dnia w historii - nie, to jest raczej coś, czego się dowiadujemy w momencie raportu i nie przeliczamy tego x razy
