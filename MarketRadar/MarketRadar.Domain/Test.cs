@@ -15,7 +15,7 @@ var requirement = new Requirement
         {   
             Name = "Price",
             Instrument = "ASB",
-            ObservationDate = new DateTime(2026, 4, 23),
+            ObservationDate = new DateTime(2026, 4, 22),
             Requirements = []
         }
     ]
