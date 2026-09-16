@@ -46,7 +46,7 @@ var relativeMomentum12M = new Requirement
         {   
             Name = "Price",
             Instrument = "ASB",
-            ObservationDate = new DateTime(2026, 4, 22),
+            ObservationDate = new DateTime(2025, 4, 23),
             Requirements = []
         },
         new Requirement
@@ -60,7 +60,7 @@ var relativeMomentum12M = new Requirement
         {   
             Name = "Price",
             Instrument = "WIG",
-            ObservationDate = new DateTime(2026, 4, 22),
+            ObservationDate = new DateTime(2025, 4, 23),
             Requirements = []
         }
     ]
