@@ -6,14 +6,14 @@ var requirement = new Requirement
     Requirements = [
         new Requirement
         {   
-            Name = "DailyChange",
+            Name = "Price",
             Instrument = "ASB",
             ObservationDate = new DateTime(2026, 4, 23),
             Requirements = []
         },
         new Requirement
         {   
-            Name = "DailyChange",
+            Name = "Price",
             Instrument = "ASB",
             ObservationDate = new DateTime(2026, 4, 23),
             Requirements = []
