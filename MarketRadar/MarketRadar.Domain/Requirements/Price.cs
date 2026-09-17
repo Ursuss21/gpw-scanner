@@ -2,6 +2,6 @@
 
 public class Price : IRequirement
 {
-    public required string Instrument { get; set; }
-    public required DateTime ObservationDate { get; set; }
+    public required string Instrument { get; init; }
+    public required DateTime ObservationDate { get; init; }
 }

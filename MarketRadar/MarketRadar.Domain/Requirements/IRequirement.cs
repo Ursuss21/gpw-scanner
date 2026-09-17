@@ -1,5 +1,5 @@
 public interface IRequirement
 {
-    public string Instrument {get; set;}
-    public DateTime ObservationDate {get; set;}
+    public string Instrument {get; init;}
+    public DateTime ObservationDate {get; init;}
 }
