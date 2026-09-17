@@ -1,5 +1,3 @@
-
-
 public class Price : IRequirement
 {
     public required string Instrument { get; init; }
