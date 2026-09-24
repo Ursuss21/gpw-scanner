@@ -74,6 +74,35 @@ graph TD
 
 ```
 
+Instrument
+────────────────────────
+Id          bigint        PK
+Symbol      varchar
+
+MarketData
+──────────────────────────────
+Id              bigint          PK
+InstrumentId    bigint          FK → Instrument.Id
+AvailableAt     timestamp
+Price           decimal
+SessionTurnover decimal
+
+FundamentalData
+──────────────────────────────────
+Id                  bigint          PK
+InstrumentId        bigint          FK → Instrument.Id
+AvailableAt         timestamp
+PeriodEnd           date
+EBIT                decimal
+SharesInYear        decimal
+NetIncome           decimal
+Equity              decimal
+TotalAssets         decimal
+EV                  decimal
+Amortization        decimal
+SharesOutstanding   decimal
+SalesRevenue        decimal
+TotalLiabilities    decimal
 
 Zamkniecie sesji (dane marketowe)
     - Instrument
