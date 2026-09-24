@@ -1,0 +1,1 @@
+public record PriceRequest(string Instrument, DateTime At);

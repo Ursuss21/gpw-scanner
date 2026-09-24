@@ -1,0 +1,1 @@
+public record PriceResponse(decimal Value);
