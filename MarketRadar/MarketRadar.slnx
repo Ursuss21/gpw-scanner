@@ -1,3 +1,5 @@
 <Solution>
+  <Project Path="MarketRadar.Application/MarketRadar.Application.csproj" />
   <Project Path="MarketRadar.Domain/MarketRadar.Domain.csproj" />
+  <Project Path="MarketRadar.Infrastructure/MarketRadar.Infrastructure.csproj" />
 </Solution>

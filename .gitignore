@@ -159,6 +159,12 @@ PublishScripts/
 # NuGet v3's project.json files produces more ignorable files
 *.nuget.props
 *.nuget.targets
+[Bb]in/
+[Oo]bj/
+*.csproj.nuget.dgspec.json
+*.csproj.nuget.g.props
+*.csproj.nuget.g.targets
+project.assets.json
 
 # Windows Store app package directories and files
 AppPackages/
