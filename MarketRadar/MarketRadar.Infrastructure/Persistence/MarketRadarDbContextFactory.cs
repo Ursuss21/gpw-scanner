@@ -9,7 +9,14 @@ public sealed class MarketRadarDbContextFactory : IDesignTimeDbContextFactory<Ma
     {
         var optionsBuilder = new DbContextOptionsBuilder<MarketRadarDbContext>();
 
-        optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=market_radar;Username=admin;Password=zaq1@WSX");
+        var connectionString = Environment.GetEnvironmentVariable("MARKET_RADAR_CONNECTION_STRING");
+
+        if (string.IsNullOrWhiteSpace(connectionString))
+        {
+            throw new InvalidOperationException("MARKET_RADAR_CONNECTION_STRING environment variable is not set.");
+        }
+
+        optionsBuilder.UseNpgsql(connectionString);
 
         return new MarketRadarDbContext(optionsBuilder.Options);
     }
