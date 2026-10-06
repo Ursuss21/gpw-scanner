@@ -22,6 +22,8 @@ The user is a software developer with strong frontend experience and is using th
 - Prefer small, focused changes that compile.
 - After a meaningful change, build/test the solution.
 - The user prefers deterministic C# formatting.
+- The user writes the project code themselves as a learning exercise. Explain trade-offs, ask guiding questions, and review or suggest code, but do not edit application code unless the user explicitly asks for implementation.
+- Updating `AGENTS.md` to preserve project context and collaboration preferences is allowed.
 
 ## Solution architecture
 

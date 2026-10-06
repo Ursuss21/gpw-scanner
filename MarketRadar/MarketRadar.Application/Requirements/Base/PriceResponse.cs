@@ -1,1 +1,1 @@
-public record PriceResponse(decimal Value);
+public record PriceResponse(decimal? Value);
